@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Todo home page</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container my-2" align="center">
+      <div th:replace="~{fragments/header :: header}"></div>
+      <h3>Todo List</h3>
+      <div sec:authorize="isAuthenticated()">
+        <a th:href="@{/todos/add}" class="btn btn-primary btn-sm mb-3"
+          >Add Todo</a
+        >
+      </div>
+      <table
+        style="width: 80%"
+        border="1"
+        class="table table-striped table-responsive-md"
+      >
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="todo:${allTodolist}">
+            <td th:text="${todo.title}"></td>
+            <td th:text="${todo.content}"></td>
+            <td
+              class="d-flex flex-row justify-content-around align-items-center"
+            >
+              <a
+                th:href="@{/todos/update/{id}(id=${todo.id})}"
+                class="btn btn-primary"
+                sec:authorize="isAuthenticated()"
+                >Update</a
+              >
+              <form
+                action="#"
+                th:action="@{/todos/delete/{id}(id=${todo.id})}"
+                th:object="${todo}"
+                sec:authorize="isAuthenticated()"
+                method="POST"
+              >
+                <button type="submit" class="btn btn-secondary">delete</button>
+              </form>
+
+              <a th:href="@{/todos/{id}(id=${todo.id})}" class="btn btn-info"
+                >details</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

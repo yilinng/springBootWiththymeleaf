@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Todo Details</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container my-2" align="center">
+      <div th:replace="~{fragments/header :: header}"></div>
+      <h1>Todo Details</h1>
+      <div class="details">
+        <h3 th:text="${todo.title}"></h3>
+        <p th:text="${todo.content}"></p>
+
+        <div class="date">
+          <span th:text="${todo.createDate}"></span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
